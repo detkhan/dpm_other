@@ -102,6 +102,10 @@ $.get(url, {
 })
 .done(function( data ) {
   switch (sec) {
+    case "1":
+  $("#table_sec1").empty();
+  $("#table_sec1").html(data);
+        break;
       case "2":
     $("#table_sec2").empty();
     $("#table_sec2").html(data);
@@ -133,6 +137,11 @@ $(document).on("click", "#drilldown", function() {
   $(".modal-body").html(loading);
   $("#loading").button('loading');
   switch (sec) {
+    case "1":
+    $("#myModalLabel").html("คัดกรองพยาธิใบไม้ตับด้วยการตรวจอุจจาระและปัสสาวะ");
+    var tamboncode=$(this).attr("tamboncode");
+    var dataget={tamboncode:tamboncode,report_id:report_id};
+        break;
       case "2":
       $("#myModalLabel").html("คัดกรองมะเร็งท่อน้ำดีด้วยการตรวจอัลตราซาวด์");
       var provincecode=$(this).attr("provincecode");
@@ -174,6 +183,7 @@ $(document).on("click", "#drilldownperson", function() {
   .done(function( data ) {
     $(div).empty();
     $(div).html(data);
+    $('#myTab a[href="#report2"]').tab('show');
   });
 
 });

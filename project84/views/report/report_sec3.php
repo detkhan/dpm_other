@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+Yii::$app->formatter->locale = 'th-TH';
 
 
 
@@ -20,7 +20,7 @@ use yii\grid\GridView;
 </div>
 </div>
 <h5 title="เป้าหมายผ่าตัดรวมทั้งประเทศ 600 รายนับเฉพาะ Liver resection, Hilar resection, Bypass, Exploratory laparotomy ± biopsy และ Whipple’s operation">
-    ผลงานในช่วงวันที่ 1 ตุลาคม 2558 ถึงวันที่ 19 กันยายน 2559 จำนวน
+    ผลงานในช่วงวันที่ <? echo Yii::$app->formatter->asDate($datadate[fromDate], 'long')  ?> ถึงวันที่ <? echo Yii::$app->formatter->asDate($datadate[toDate], 'long')  ?>
     <label class="label label-primary"><?php echo $dataReportSumSec3[0]["sum(surgery)"]   ?></label>ราย คิดเป็น
     <label class="label label-primary"><?php echo number_format((($dataReportSumSec3[0]["sum(surgery)"])/600)*100,2)   ?>  %</label>
 </h5>

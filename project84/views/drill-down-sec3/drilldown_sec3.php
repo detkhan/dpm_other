@@ -6,7 +6,7 @@ use backend\modules\project84\controllers\DrillDownSec3Controller;
 $province=DrillDownSec3Controller::GetProvince($hsitecode,$report_id);
 ?>
 <div class="table-responsive">
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" id="myTab">
 <li class="active"><a href="#report1" data-toggle="tab">รายงาน</a></li>
 <li><a id="drilldownperson" report_id="$report_id"  div="#report2" sec="3" href="#report2" data-toggle="tab">รายงานรายบุคคล</a></li>
 </ul>
@@ -76,7 +76,7 @@ $p_surgery=($value3[surgery]-$value3[c_surgery]);
 if ($checkadmin=="yes") {
 
      ?>
-  <a href="#report2" id="drilldownperson" report_id="<?= $report_id ?>" sitecode="<?= $sitecode ?>" hsitecode="<?= $hsitecode ?>" title="<?= $hospital_name ?>" sec="3" div="#report2" data-toggle="tab"><?= $hospital_name ?></a>
+  <a href="#report2" data-toggle="tab"  id="drilldownperson" report_id="<?= $report_id ?>" sitecode="<?= $sitecode ?>" hsitecode="<?= $hsitecode ?>" title="<?= $hospital_name ?>" sec="3" div="#report2" ><?= $hospital_name ?></a>
   <?php
 }else{
 echo $hospital_name;

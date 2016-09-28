@@ -8,7 +8,7 @@ use backend\modules\project84\controllers\DrillDownSec2Controller;
 $amphur=DrillDownSec2Controller::GetAmphur($report_id,$provincecode);
 ?>
 <div class="table-responsive">
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs" id="myTab">
 <li class="active"><a href="#report1" data-toggle="tab">รายงาน</a></li>
 <li><a id="drilldownperson" report_id="<?= $report_id  ?>"  div="#report2" sec="2" href="#report2" data-toggle="tab">รายงานรายบุคคล</a></li>
 </ul>

@@ -60,14 +60,12 @@ class ReportSec3Controller extends Controller
     public function CheckControlTb3($fromDate=null,$toDate=null)
     {
       if($fromDate==null && $toDate==null){
-        $sqlCeckReportControlLast = "SELECT * FROM project84_report_control_tb3 WHERE report_id='1'";
+        $sqlCeckReportControlLast = "SELECT LEFT(lastcal,10) AS daylast FROM project84_report_control_tb3 WHERE report_id='1'";
         $dataCeckReportControlLast = Yii::$app->db->createCommand($sqlCeckReportControlLast)->queryAll();
         $datacount=count($dataCeckReportControlLast);
         if($datacount>0){
-          //$dayLast=date('Y-m-d',strtotime($dataCeckReportControlLast[lastcal]));
-          //$dayNow=date('Y-m-d');
-          $dayLast=1;
-          $dayNow=1;
+          $dayLast=$dataCeckReportControlLast[daylast];
+          $dayNow=date('Y-m-d');
           if($dayLast==$dayNow){
             $report_id=1;
           }else{

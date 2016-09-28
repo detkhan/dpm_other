@@ -41,16 +41,19 @@ class ReportController extends Controller
 
     public function actionGetDataSort($fromDate=null,$toDate=null,$colum=null,$sort=null,$sec=null,$div=null)
     {
+      if($fromDate==null && $toDate==null){
+        $fromDate='2015-10-01';
+        $toDate=date('Y-m-d');
+      }
+      $report_id=ReportSec3Controller::CheckControlTb3($fromDate,$toDate);
       switch ($sec) {
         case '1':
           $render="report_sec1";
-          $dataArraySec3 = ReportSec3Controller::GetDataTb3($fromDate,$toDate,'treat','DESC');
-          $dataArraySec1 = ReportSec1Controller::GetDataTb1($dataArraySec3[report_id],$colum,$sort);
+          $dataArraySec1 = ReportSec1Controller::GetDataTb1($report_id,$colum,$sort);
           break;
         case '2':
           $render="report_sec2";
-          $dataArraySec3 = ReportSec3Controller::GetDataTb3($fromDate,$toDate,'treat','DESC');
-          $dataArraySec2 = ReportSec2Controller::GetDataTb2($dataArraySec3[report_id],$colum,$sort);
+          $dataArraySec2 = ReportSec2Controller::GetDataTb2($report_id,$colum,$sort);
           break;
           case '3':
           $render="report_sec3";
@@ -68,7 +71,6 @@ class ReportController extends Controller
       $dataReportSumAllSec1=$dataArraySec1[datasumall];
       $datadate[fromDate]=$fromDate;
       $datadate[toDate]=$toDate;
-      $report_id=$dataArraySec3[report_id];
           $url=$this->renderAjax($render, [
             'dataProviderSec1' => $dataProviderSec1,
             'dataReportSumSec1' => $dataReportSumSec1,

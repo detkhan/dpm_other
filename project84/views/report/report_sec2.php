@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use backend\modules\project84\controllers\ReportController;
+Yii::$app->formatter->locale = 'th-TH';
 
 
 
@@ -14,27 +15,27 @@ use yii\grid\GridView;
 <h5>
         ผลงานตรวจอัลตร้าซาวด์
         <label class="label label-primary"><?php echo $dataReportSumAllSec2[0]["sum(cca02)"]   ?></label>ราย คิดเป็น
-        <label class="label label-primary"><?php echo number_format(($dataReportSumAllSec2[0]["sum(cca02)"]/135000)*100,2)   ?>%</label> จากเป้าหมายรวมทั้งประเทศ 135,000 ราย
+        <label class="label label-primary"><?php echo ReportController::calpercent($dataReportSumAllSec2[0]["sum(cca02)"],135000,"no")  ?>%</label> จากเป้าหมายรวมทั้งประเทศ 135,000 ราย
 </h5>
 <div class="row">
   <div class="col-md-12">
-<div class="progress-bar-success-head" role="progressbar" aria-valuenow="<?php echo number_format(($dataReportSumAllSec2[0]["sum(cca02)"]/135000)*100,2)   ?>" aria-valuemin="0" aria-valuemax="135000" style="width: <?php echo number_format(($dataReportSumAllSec2[0]["sum(cca02)"]/135000)*100,2)   ?>%"></div>
+<div class="progress-bar-success-head" role="progressbar" aria-valuenow="<?php echo ReportController::calpercent($dataReportSumAllSec2[0]["sum(cca02)"],135000,"no")   ?>" aria-valuemin="0" aria-valuemax="135000" style="width: <?php echo ReportController::calpercent($dataReportSumAllSec2[0]["sum(cca02)"],135000,"no")   ?>%"></div>
 </div>
 <div class="col-md-12">
 <h5>
-        ผลงานในช่วงวันที่ 1 ตุลาคม 2558 ถึงวันที่ 19 กันยายน 2559 จำนวน
+        ผลงานในช่วงวันที่ <? echo Yii::$app->formatter->asDate($datadate[fromDate], 'long')  ?> ถึงวันที่ <? echo Yii::$app->formatter->asDate($datadate[toDate], 'long')  ?> จำนวน
         <label class="label label-primary"><?php echo $dataReportSumSec2[0]["sum(cca02)"]   ?></label>ราย คิดเป็น
-        <label class="label label-primary"><?php echo number_format(($dataReportSumSec2[0]["sum(cca02)"]/135000)*100,2)   ?>%</label>
+        <label class="label label-primary"><?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(cca02)"],135000,"no")   ?>%</label>
 </h5>
 </div>
 <div class="col-md-12">
-<div class="progress-bar-success-head" role="progressbar" aria-valuenow="<?php echo number_format(($dataReportSumSec2[0]["sum(cca02)"]/135000)*100,2)   ?>" aria-valuemin="0" aria-valuemax="135000" style="width: <?php echo number_format(($dataReportSumSec2[0]["sum(cca02)"]/135000)*100,2)   ?>%"></div>
+<div class="progress-bar-success-head" role="progressbar" aria-valuenow="<?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(cca02)"],135000,"no")   ?>" aria-valuemin="0" aria-valuemax="135000" style="width: <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(cca02)"],135000,"no")   ?>%"></div>
 </div>
 </div>
 <div class="row">
 <div class="col-md-12">
 <div id="report84-us-desc" class="alert alert-warning report84-desc">
-        ผลงานตรวจคัดกรองมะเร็งท่อน้ำดี รวม <?php echo $dataReportSumSec2[0]["sum(cca02)"]   ?> ราย ผิดปกติจำนวน <?php echo $dataReportSumSec2[0]["sum(abnormal)"]   ?> (<?php echo number_format(($dataReportSumSec2[0]["sum(abnormal)"]/$dataReportSumSec2[0]["sum(cca02)"])*100,2)   ?> %) ราย สงสัย CCA จำนวน <?php echo $dataReportSumSec2[0]["sum(suspected)"] ?> (<?php echo number_format(($dataReportSumSec2[0]["sum(suspected)"]/$dataReportSumSec2[0]["sum(cca02)"])*100,2)   ?> %) ราย<br>เข้ารับ CT/MRI จำนวน <?php echo $dataReportSumSec2[0]["sum(ctmri)"] ?> (<?php echo number_format(($dataReportSumSec2[0]["sum(ctmri)"]/$dataReportSumSec2[0]["sum(cca02)"])*100,2)   ?> %) ราย ผลยืนยันเป็น CCA จำนวน <?php echo $dataReportSumSec2[0]["sum(cca)"] ?> ราย คิดเป็น <?php echo number_format(($dataReportSumSec2[0]["sum(cca)"]/$dataReportSumSec2[0]["sum(ctmri)"])*100,2)   ?> % ของผู้มาตรวจ CT/MRI และคิดเป็น <?php echo number_format(($dataReportSumSec2[0]["sum(cca)"]/$dataReportSumSec2[0]["sum(cca02)"])*100,2)   ?> % ของผู้มาตรวจอัลตร้าซาวด์
+        ผลงานตรวจคัดกรองมะเร็งท่อน้ำดี รวม <?php echo $dataReportSumSec2[0]["sum(cca02)"]   ?> ราย ผิดปกติจำนวน <?php echo $dataReportSumSec2[0]["sum(abnormal)"]   ?> <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(abnormal)"],$dataReportSumSec2[0]["sum(cca02)"],"yes")   ?> ราย สงสัย CCA จำนวน <?php echo $dataReportSumSec2[0]["sum(suspected)"] ?> <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(suspected)"],$dataReportSumSec2[0]["sum(cca02)"],"yes")   ?> ราย<br>เข้ารับ CT/MRI จำนวน <?php echo $dataReportSumSec2[0]["sum(ctmri)"] ?> <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(ctmri)"],$dataReportSumSec2[0]["sum(cca02)"],"yes")   ?> ราย ผลยืนยันเป็น CCA จำนวน <?php echo $dataReportSumSec2[0]["sum(cca)"] ?> ราย คิดเป็น <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(cca)"],$dataReportSumSec2[0]["sum(ctmri)"],"no")   ?> % ของผู้มาตรวจ CT/MRI และคิดเป็น <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(cca)"],$dataReportSumSec2[0]["sum(cca02)"],"no")   ?> % ของผู้มาตรวจอัลตร้าซาวด์
 </div>
 </div>
 </div>
@@ -70,9 +71,9 @@ use yii\grid\GridView;
     <td class="kv-align-center kv-align-middle" style="width:80px;"><?php  echo $num  ?></td>
     <td class="kv-align-center kv-align-middle" style="width:80px;"><?php echo $keysec2[zone]   ?></td>
     <td class="kv-align-middle"><a id="drilldown" report_id="<?php  echo $report_id  ?>" provincecode="<?php echo $keysec2[provincecode]   ?>" title="<?php echo $keysec2[province]   ?>" sec="2" sumtotal="<?= $keysec2[cca02] ?>" data-toggle="modal" data-target="#myModal"><?php echo $keysec2[province]   ?></a></td>
-    <td class="kv-align-center kv-align-middle" style="width:10%;"><div onmouseover="$(this).popover('show')" onmouseout="$(this).popover('hide')" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $keysec2[nall]   ?>(<?php echo number_format(($keysec2[cca02]/$keysec2[target])*100,2)   ?> %)">
-    <div id="w88" class="progress"><div class="progress-bar-success progress-bar" role="progressbar" aria-valuenow="229.4" aria-valuemin="0" aria-valuemax="100" style="/*min-width: 2em;*/ max-width: 100%; width: <?php echo number_format(($keysec2[cca02]/$keysec2[target])*100,2)   ?>%;">
-      <span class="sr-only"><?php echo number_format(($keysec2[cca02]/$keysec2[target])*100,2)   ?>% Complete</span></div>
+    <td class="kv-align-center kv-align-middle" style="width:10%;"><div onmouseover="$(this).popover('show')" onmouseout="$(this).popover('hide')" data-toggle="popover" data-html="true" data-placement="top" data-content="<?php echo $keysec2[nall]   ?>(<?php echo ReportController::calpercent($keysec2[cca02],$keysec2[target],"no")   ?> %)">
+    <div id="w88" class="progress"><div class="progress-bar-success progress-bar" role="progressbar" aria-valuenow="229.4" aria-valuemin="0" aria-valuemax="100" style="/*min-width: 2em;*/ max-width: 100%; width: <?php echo ReportController::calpercent($keysec2[cca02],$keysec2[target],"no")   ?>%;">
+      <span class="sr-only"><?php echo ReportController::calpercent($keysec2[cca02],$keysec2[target],"no")   ?>% Complete</span></div>
     </div>
     </div>
     </td>
@@ -93,7 +94,7 @@ use yii\grid\GridView;
 <tr class="kv-page-summary warning"><td class="kv-align-center kv-align-middle" style="width:80px;">&nbsp;</td><td class="kv-align-center kv-align-middle" style="width:80px;">&nbsp;</td><td class="kv-align-middle">รวม
 </td><td class="kv-align-center kv-align-middle" style="width:10%;">&nbsp;</td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(nall)"]   ?></td>
     <td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(target)"]   ?></td>
-    <td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(cca02)"]   ?></td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(abnormal)"]   ?></td><td class="kv-align-right kv-align-middle" style="width:130px;"><?php echo $dataReportSumSec2[0]["sum(ctmri)"]   ?> (<?php echo number_format(($dataReportSumSec2[0]["sum(ctmri)"]/$dataReportSumSec2[0]["sum(cca02)"])*100,2)   ?> %)</td><td class="kv-align-right kv-align-middle">236</td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(cca)"]   ?></td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(treated)"]   ?> (<?php echo number_format(($dataReportSumSec2[0]["sum(treated)"]/$dataReportSumSec2[0]["sum(cca)"])*100,2)   ?>%)</td></tr>
+    <td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(cca02)"]   ?></td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(abnormal)"]   ?></td><td class="kv-align-right kv-align-middle" style="width:130px;"><?php echo $dataReportSumSec2[0]["sum(ctmri)"]   ?> <?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(ctmri)"],$dataReportSumSec2[0]["sum(cca02)"],"yes")   ?></td><td class="kv-align-right kv-align-middle">236</td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(cca)"]   ?></td><td class="kv-align-right kv-align-middle"><?php echo $dataReportSumSec2[0]["sum(treated)"]   ?><?php echo ReportController::calpercent($dataReportSumSec2[0]["sum(treated)"],$dataReportSumSec2[0]["sum(cca)"],"yes")   ?></td></tr>
 </tfoot></table></div></div>
 </div></div>
 </div>
